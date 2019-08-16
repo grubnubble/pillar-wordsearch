@@ -1,7 +1,10 @@
-from app import get_words
+from app import *
 
 CSV_FILE = 'input_file.txt'
 
-def test_get_words():
-	expected = ["BONES","KHAN","KIRK","SCOTTY","SPOCK","SULU","UHURA"]
-	assert get_words(CSV_FILE) == expected
+def test_convert():
+	expected = "UMKHULKI"
+	assert convert(["U","M","K","H","U","L","K","I"]) == expected
+
+def test_search_rows_forward_success():
+	assert search_rows_forward('SCOTTY', CSV_FILE) == {'SCOTTY': True}
