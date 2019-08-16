@@ -7,4 +7,5 @@ def test_convert():
 	assert convert(["U","M","K","H","U","L","K","I"]) == expected
 
 def test_search_rows_forward_success():
-	assert search_rows_forward('SCOTTY', CSV_FILE) == {'SCOTTY': True}
+	expected = {'SCOTTY': True}
+	assert search_rows_forward(CSV_FILE) == expected

@@ -1,16 +1,16 @@
 import csv
 
-def search_rows_forward(word, csvfile):
+def search_rows_forward(csvfile):
 	found_words = {}
 
 	with open(csvfile) as file:
 		reader = csv.reader(file, delimiter=',')
-
 		words_to_find = next(reader)
 
 		for row in reader:
-			if word in convert(row):
-				found_words[word] = True
+			for word in words_to_find:
+				if word in convert(row):
+					found_words[word] = True
 
 	return found_words
 
