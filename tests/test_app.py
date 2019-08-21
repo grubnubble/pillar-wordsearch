@@ -9,3 +9,9 @@ def test_convert():
 def test_search_rows_forward_success():
 	expected = {'SCOTTY': True}
 	assert search_rows_forward(CSV_FILE) == expected
+
+def test_get_rows():
+	expected = [
+		["BONES","KHAN","KIRK","SCOTTY","SPOCK","SULU","UHURA"],
+		"UMKHULKINVJOCWE", "LLSHKZZWZCGJUYG", "HSUPJPRJDHSBXTG"]
+	assert get_rows('tests/test_input.txt')
