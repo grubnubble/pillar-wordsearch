@@ -1,16 +1,22 @@
 import csv
 
-def search_rows_forward(csvfile):
+def find_words(csvfile):
+	word_search_list = get_rows(csvfile)
+	found_words = []
+
+	# search forward rows
+	found_words.append(search_rows_forward(word_search_list))
+
+	return found_words
+
+def search_rows_forward(word_search_list):
+	words_to_find = word_search_list.pop(0)
 	found_words = {}
 
-	with open(csvfile) as file:
-		reader = csv.reader(file, delimiter=',')
-		words_to_find = next(reader)
-
-		for row in reader:
-			for word in words_to_find:
-				if word in convert(row):
-					found_words[word] = True
+	for row in word_search_list:
+		for word in words_to_find:
+			if word in row:
+				found_words[word] = True
 
 	return found_words
 
