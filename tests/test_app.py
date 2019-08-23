@@ -11,8 +11,13 @@ def test_convert():
 def test_get_rows():
 	expected = [
 		["BONES","KHAN","KIRK","SCOTTY","SPOCK","SULU","UHURA"],
-		"UMKHULKINVJOCWE", "LLSHKZZWZCGJUYG", "HSUPJPRJDHSBXTG", "UHURAYKZREPPXPF"]
+		"UMKHU", "LLSHK", "HSUPJ", "UHURA"]
 	assert get_rows(TEST_CSV_FILE) == expected
+
+def test_get_columns():
+	expected = ["ULHU", "MLSH", "KSUU", "HHPR", "UKJA"]
+	rows_matrix = get_rows(TEST_CSV_FILE)
+	assert get_columns(rows_matrix) == expected
 
 def test_find_words():
 	expected = [{'SCOTTY': (0,5), 'KIRK': (4, 7)}]

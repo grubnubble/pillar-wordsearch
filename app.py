@@ -40,14 +40,34 @@ def get_rows(csvfile):
 	"""Return a list of strings that represent rows in 
 		the word search grid. The first element of the list
 		is a list of the words to find."""
-	list_of_rows = []
+	word_search = []
 
 	with open(csvfile) as file:
 		reader = csv.reader(file, delimiter=',')
 		# the first line contains the words to find
-		list_of_rows.append(next(reader))
+		word_search.append(next(reader))
 
 		for row in reader:
-			list_of_rows.append(convert(row))
+			word_search.append(convert(row))
 
-	return list_of_rows
+	return word_search
+
+def get_columns(word_search):
+	"""Return a list of strings that represent columns in
+		the word search grid."""
+
+	# we don't need the list of words to find
+	word_search.pop(0)
+	# get dimension of the word search grid by determining the
+	# 	length of the first row
+	length = len(word_search[0])
+
+	column_matrix = []
+
+	for i in range(length):
+		column = []
+		for row in word_search:
+			column.append(row[i])
+		column_matrix.append(convert(column))
+
+	return column_matrix
