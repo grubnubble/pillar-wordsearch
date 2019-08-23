@@ -1,17 +1,23 @@
 import csv
 
+ROW = "row"
+COLUMN = "column"
+
 def find_words(csvfile):
 	word_search = get_word_search(csvfile)
 	# get words to find
 	words = word_search.pop(0)
-	found_words = []
+	found_words = {}
 
 	# search rows, forward and backward
-	found_words.append(search_rows(word_search, words))
+	found_words.update(search(word_search, words))
+	# search columns, forward and backward
+	columns = get_columns(word_search)
+	found_words.update(search(columns, words, COLUMN))
 
 	return found_words
 
-def search_rows(word_matrix, words):
+def search(word_matrix, words, search_type=ROW):
 	found_words = {}
 
 	row_index = 0
@@ -28,7 +34,13 @@ def search_rows(word_matrix, words):
 				word_index = len(row) - 1 - reverse_search_index
 
 			if isinstance(word_index, int):
-				found_words[word] = (word_index, row_index)
+				if search_type == COLUMN:
+					# the index of elements in a matrix that has been transformed
+					# 	by 90 degrees is the inverse of the original matrix
+					found_words[word] = (row_index, word_index)
+				else:
+					found_words[word] = (word_index, row_index)
+
 		row_index += 1
 	
 	return found_words

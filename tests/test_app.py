@@ -22,7 +22,7 @@ def test_get_columns():
 	assert get_columns(word_search) == expected
 
 def test_find_words():
-	expected = [{'SCOTTY': (0,5), 'KIRK': (4, 7)}]
+	expected = {'SCOTTY': (0,5), 'KIRK': (4, 7), 'BONES': (0,6), 'KHAN': (5, 9)}
 	assert find_words(CSV_FILE) == expected
 
 def test_search_rows_success():
@@ -31,7 +31,7 @@ def test_search_rows_success():
 	words = word_search.pop(0)
 
 	expected = {'SCOTTY': (0,5), 'KIRK': (4, 7)}
-	assert search_rows(word_search, words) == expected
+	assert search(word_search, words) == expected
 
 def test_search_rows_fail():
 	word_search = get_word_search(TEST_FAIL_CSV_FILE)
@@ -39,4 +39,22 @@ def test_search_rows_fail():
 	words = word_search.pop(0)
 
 	expected = {}
-	assert search_rows(word_search, words) == expected
+	assert search(word_search, words) == expected
+
+def test_search_columns_success():
+	word_search = get_word_search(CSV_FILE)
+	# get rid of list of words to find
+	words = word_search.pop(0)
+	columns = get_columns(word_search)
+
+	expected = {'BONES': (0,6), 'KHAN': (5, 9)}
+	assert search(columns, words, "column") == expected
+
+def test_search_columns_fail():
+	word_search = get_word_search(TEST_FAIL_CSV_FILE)
+	# get rid of list of words to find
+	words = word_search.pop(0)
+	columns = get_columns(word_search)
+
+	expected = {}
+	assert search(columns, words, "column") == expected
