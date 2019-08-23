@@ -1,21 +1,22 @@
 import csv
 
 def find_words(csvfile):
-	word_search_list = get_rows(csvfile)
+	word_search = get_word_search(csvfile)
+	# get words to find
+	words = word_search.pop(0)
 	found_words = []
 
 	# search rows, forward and backward
-	found_words.append(search_rows(word_search_list))
+	found_words.append(search_rows(word_search, words))
 
 	return found_words
 
-def search_rows(word_search_list):
-	words_to_find = word_search_list.pop(0)
+def search_rows(word_matrix, words):
 	found_words = {}
 
 	row_index = 0
-	for row in word_search_list:
-		for word in words_to_find:
+	for row in word_matrix:
+		for word in words:
 			forward_search_index = row.find(word)
 			reverse_search_index = row[::-1].find(word)
 
@@ -36,7 +37,7 @@ def convert(list_of_strings):
 	"""Convert a list of strings to a single string"""
 	return "".join(list_of_strings)
 
-def get_rows(csvfile):
+def get_word_search(csvfile):
 	"""Return a list of strings that represent rows in 
 		the word search grid. The first element of the list
 		is a list of the words to find."""
@@ -52,21 +53,19 @@ def get_rows(csvfile):
 
 	return word_search
 
-def get_columns(word_search):
+def get_columns(word_matrix):
 	"""Return a list of strings that represent columns in
 		the word search grid."""
 
-	# we don't need the list of words to find
-	word_search.pop(0)
 	# get dimension of the word search grid by determining the
 	# 	length of the first row
-	length = len(word_search[0])
+	length = len(word_matrix[0])
 
 	column_matrix = []
 
 	for i in range(length):
 		column = []
-		for row in word_search:
+		for row in word_matrix:
 			column.append(row[i])
 		column_matrix.append(convert(column))
 
